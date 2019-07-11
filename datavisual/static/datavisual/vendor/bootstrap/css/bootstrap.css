@@ -4083,6 +4083,10 @@ input[type="button"].btn-block {
   margin-bottom: -1px;
 }
 
+.nav-tabs .nav-item a{
+  font-size: 1rem;
+}
+
 .nav-tabs .nav-link {
   border: 1px solid transparent;
   border-top-left-radius: 0.25rem;
@@ -4114,6 +4118,7 @@ input[type="button"].btn-block {
 
 .nav-pills .nav-link {
   border-radius: 0.25rem;
+
 }
 
 .nav-pills .nav-link.active,
@@ -4182,6 +4187,7 @@ input[type="button"].btn-block {
 .navbar-brand:hover, .navbar-brand:focus {
   text-decoration: none;
 }
+
 
 .navbar-nav {
   display: -ms-flexbox;

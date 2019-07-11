@@ -37,20 +37,20 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#services" >Tools</a>
+            <a class="nav-link js-scroll-trigger " href="#services" style="font-size: 1rem"><strong>Tools</strong></a>
           </li>
       
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#team"><ABBR>Portfolio</ABBR></a>
+            <a class="nav-link js-scroll-trigger " href="#team" style="font-size: 1rem"><ABBR><strong>Portfolio</strong></ABBR></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            <a class="nav-link js-scroll-trigger" href="#contact" style="font-size: 1rem"><strong>Contact</strong></a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-
+{% block content %}
   <!-- Header -->
   <header class="masthead">
     <div class="container">
@@ -215,6 +215,7 @@
     </div>
   </section>
 
+{% endblock %}
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
@@ -237,6 +238,11 @@
             <li class="list-inline-item">
               <a href="https://www.kaggle.com/hehezhao">
                 <i class="fab fa-kaggle"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://zhaohehe520.github.io">
+                <i class="fas fa-link"></i>
               </a>
             </li>
           </ul>
