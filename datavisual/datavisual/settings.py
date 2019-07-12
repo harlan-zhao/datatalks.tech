@@ -55,7 +55,7 @@ ROOT_URLCONF = 'datavisual.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),os.path.join(BASE_DIR, 'autochart/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,5 +124,5 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),
     )
 
-MDDIA_ROOT = os.path.join(BASE_DIR,'file')
-MEDIA_URL = '/file/'
+MDDIA_ROOT = os.path.join(BASE_DIR,'files')
+MEDIA_URL = '/files/'
