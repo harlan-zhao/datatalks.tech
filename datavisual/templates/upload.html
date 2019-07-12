@@ -1,35 +1,108 @@
-{% load static from staticfiles %}
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<link href="{% static 'upload/css/style.css' %}" rel="stylesheet">
-<script src="{% static 'upload/js/upload.js' %}"></script>
-<!------ Include the above in your HEAD tag ---------->
+{% load static %}
+<!DOCTYPE html>
+<html>
 
-<div class="container">
-      <div class="panel panel-default">
-        <div class="panel-heading"><strong>Upload Files</strong></div>
-        <div class="panel-body">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Data Talks|Upload Your CSV File</title>
 
-          <!-- Standar Form -->
-          <h4>Select .CSV files from your computer</h4>
-          <form method="post" enctype="multipart/form-data" id="js-upload-form">
-          	{% csrf_token %}
-            <div class="form-inline">
-              <div class="form-group">
-                <input type="file" name="document" id="js-upload-files">
-              </div>
-              <button type="submit" class="btn btn-sm btn-primary">Upload files</button>
+        <!-- Google web fonts -->
+        <link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel='stylesheet' />
+        
+        <!-- The main CSS file -->
+        <link href="{% static 'upload/assets/css/style.css' %}" rel="stylesheet" />
+
+        <style>
+            body {background-image: url('{% static "datavisual/img/bg/chart.jpg" %}');
+                  background-size: cover;
+                  height: 937px;
+
+              }
+              .button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+            .btn {
+                  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+                  font-weight: 700;
+                }
+
+            .btn-xl {
+              font-size: 18px;
+              padding: 20px 40px;
+            }
+
+            .btn-primary {
+              background-color: #0ac0fc;
+              border-color: #0ac0fc;
+            }
+
+            .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+  background-color: #fec810 !important;
+  border-color: #fec810 !important;
+  color: white;
+}
+
+.btn-primary:active, .btn-primary:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
+}
+
+
+              
+        </style>
+
+    </head>
+
+    <body>
+      
+        <nav>
+             <a href="/"><img src="{% static 'datavisual/img/logos/Datalogo.png' %}"  alt=""></a>
+        </nav>
+
+        <form id="upload" method="post" enctype="multipart/form-data">
+            <div id="drop">
+                Drop or Browse Your .csv File
+
+                <a>Browse</a>
+                <input type="file" name="document" multiple />
+                {% csrf_token %}
             </div>
-          </form>
+            
+            <a href="/"><button type="button" style="margin-bottom: 5px;" class="btn btn-primary button">Back</button></a>
+            <a href="analyze/"><button type="button" style="float: right; margin-bottom: 5px;" class="btn btn-primary button">Continue</button></a>
 
-          <!-- Drop Zone -->
-          <h4>Or drag and drop files below</h4>
-          <div class="upload-drop-zone" id="drop-zone">
-            Just drag and drop files here
-          </div>
+            <ul>
+                <!-- The file uploads will be shown here -->
+            </ul>
 
-        </div>
-      </div>
-    </div> <!-- /container -->
-    <script src="{% static 'upload/js/upload.js' %}"></script>
+        </form>
+
+    
+    </body>
+    <div>
+    <span style="margin-right: 100px">Copyright &copy; Data Talks 2019</span>
+    </div>
+  
+  
+     <!-- JavaScript Includes -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="{% static 'upload/assets/js/jquery.knob.js' %}"></script>
+
+        <!-- jQuery File Upload Dependencies -->
+        <script src="{% static 'upload/assets/js/jquery.ui.widget.js' %}"></script>
+        <script src="{% static 'upload/assets/js/jquery.fileupload.js' %}"></script>
+
+        <!-- Our main JS file -->
+        <script src="{% static 'upload/assets/js/script.js' %}"></script>
+       
+</html>

@@ -17,12 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from .views import homepage
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from autochart.views import upload,visualization
+from autochart.views import upload,analyze
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',homepage),
     path('upload/',upload),
-    path('visualization/',visualization)
+    path('analyze/',analyze),
 ]
  
 urlpatterns += staticfiles_urlpatterns()
