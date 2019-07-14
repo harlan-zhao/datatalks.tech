@@ -78,22 +78,20 @@
                 {% csrf_token %}
             </div>
         
-            <div style="margin-bottom: 10px"><label style="margin-left:40px;color: #fff;font-size: 17px"><strong>{{ warning }}</strong></label></div>
+            <div style="margin-bottom: 10px"><label style="margin-left:40px;color: {{color}};font-size: 17px"><strong>{{ warning }}</strong></label></div>
            
 
             <a href="/"><button type="button" style="width: 110px;" class="btn btn-primary button">Back</button></a>
-            <a href="../analyze"><button type="button" style="float: right;width: 115px" class="btn btn-primary button">Continue</button></a>
+            <a href="../filecheck/"><button type="button" style="float: right;width: 115px" class="btn btn-primary button">Continue</button></a>
+             <div style="margin-left:60px;">
+                  <span style="color: #fff">Copyright &copy; Data Talks 2019</span>
+            </div>
             <ul>
                 <!-- The file uploads will be shown here -->
             </ul>
 
         </form>
-
-    
     </body>
-    <div>
-    <span style="margin-right: 100px">Copyright &copy; Data Talks 2019</span>
-    </div>
   
   
      <!-- JavaScript Includes -->
