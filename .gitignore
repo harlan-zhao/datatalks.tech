@@ -1,3 +1,4 @@
 virtualenv/
 .idea/
 datavisual/files/
+.ideas

@@ -3,5 +3,5 @@ from django.db import models
 # Create your models here.
 
 class userfile(models.Model):
-	file = models.FileField(upload_to='files/')
+	time = models.DecimalField(max_digits=31,decimal_places=10)
 	

@@ -13,7 +13,7 @@
         <link href="{% static 'upload/assets/css/style.css' %}" rel="stylesheet" />
 
         <style>
-            body {background-image: url('{% static "datavisual/img/bg/chart.jpg" %}');
+            body {background-image: url('{% static "datavisual/img/bg/chart.png" %}');
                   background-size: cover;
                   height: 937px;
 
@@ -48,16 +48,16 @@
             }
 
             .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
-  background-color: #fec810 !important;
-  border-color: #fec810 !important;
-  color: white;
+              background-color: #fec810 !important;
+              border-color: #fec810 !important;
+              color: white;
 }
 
-.btn-primary:active, .btn-primary:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
-}
 
+            .btn-primary:active, .btn-primary:focus {
+              -webkit-box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
+              box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
+            }
 
               
         </style>
@@ -65,9 +65,9 @@
     </head>
 
     <body>
-        
-        <nav>
-             <a href="/"><img src="{% static 'datavisual/img/logos/Datalogo.png' %}"  alt=""></a>
+     
+        <nav style="padding-top: 40px">
+             <a href="/" ><img src="{% static 'datavisual/img/logos/Datalogo.png' %}"  alt=""></a>
         </nav>
 
         <form id="upload" method="post" enctype="multipart/form-data">
