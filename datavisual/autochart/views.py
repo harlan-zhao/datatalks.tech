@@ -8,7 +8,7 @@ from .models import userfile
 import shutil
 
 
-cookie_time = 600 # store cookie for only 60 seconds for testing
+cookie_time = 300 # store cookie for only 60 seconds for testing
 # Create your views here.
 def upload(request,context={}):
 	cur_time = time.time()
@@ -40,11 +40,13 @@ def upload(request,context={}):
 			try:
 				folder_id = request.session['id']
 				userfile.objects.filter(id = int(folder_id)).update_or_create(time=cur_time)
+				print(1)
 			
 			except:
 				user = userfile.objects.create(time=cur_time)
 				request.session['id'] = str(user.id)
 				folder_id = request.session['id']
+				print(2)
 
 			fs = FileSystemStorage(location=folder+'/'+folder_id)
 			filename = fs.save(my_file.name, my_file)
@@ -54,29 +56,33 @@ def upload(request,context={}):
 
 	return render(request,"upload.html",context=context)
 
-def visualization(request):
+def checkbox(request):
 	if request.method == 'POST':
-		print(request.POST.getlist('checks'))
-		render(request,"navbar.html")
+		context = {'filename':request.POST.getlist('checks')[0]}
+		return visualization(request,context)
 
 	try:
 		names = []
+		context={'files':['test']}
 		folder_name = request.session['id']
-		if len(os.listdir(f'./files/{folder_name}')) > 1:
+		if len(os.listdir(f'./files/{folder_name}')) > 1:		
 			for file in os.listdir(f'./files/{folder_name}'):
 				names.append(file)
 			context = {'files':names}
-		return render(request,"base.html",context)
+			return render(request,"filechoose.html",context)
+		else:
+			for file in os.listdir(f'./files/{folder_name}'):
+				context = {'filename':file}
+			return visualization(request,context)
 	
 	except:
 		print(1)
 		return redirect("../upload",context={'warning':'Session Ended','color':'red'})
-	return render(request,"visualization.html")
 
 	
 	
-def checkbox(request):
- 	return render(request,"navbar.html")
+def visualization(request,context):
+ 	return render(request,"visualization.html",context)
 
 
 def filecheck(request):
@@ -84,7 +90,7 @@ def filecheck(request):
 		folder_name = request.session['id']
 		user_id = int(folder_name)
 		if os.path.exists(f'./files/{folder_name}'):
-			return visualization(request)
+			return checkbox(request)
 		else:
 			return upload(request,context={'warning':'Session Ended','color':'red'})
 	except:		
