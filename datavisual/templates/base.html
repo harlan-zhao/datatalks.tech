@@ -1,0 +1,82 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="{% static 'visualization/checkbox.css' %}" rel="stylesheet" />
+    <title>Choose Your File</title>
+  </head>
+  <body> 
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a href="/"><img src="{% static 'datavisual/img/logos/Datalogo.png' %}"  alt=""></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="#">Features</a>
+      <a class="nav-item nav-link" href="#">Pricing</a>
+      <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+    </div>
+  </div>
+</nav>   
+     
+         <div class="pricing-levels-3">
+          <div class="card">
+            <div class="card-body">
+               <p style="font-size: 30px"><strong>You uploaded multiple files. <br> Which file would you like to visualize? <br>(Select 1 File Each Time, you can come back later and choose another file)</strong></p>
+            </div>
+          </div>      
+  
+          <ul class="list-group">
+          <form method="POST">
+            {% csrf_token %}
+            {% for file in files %}
+          <li class="list-group-item">
+         <!--  <div class="col" style="font-size: 30px"><input class="single-checkbox" type="checkbox" style="margin-left: 700px;" name="checks" value="{{file}}">
+          {{file}}</div> -->
+
+          <label class="container" style="margin-left: 700px">{{file}}
+          <input class="single-checkbox" type="checkbox" name="checks" value="{{file}}">
+          <span class="checkmark"></span>
+          </label>
+          </li>
+          {% endfor %}
+          <div class="card">
+            <div class="card-body">
+               <a href="./checkbox" style="margin-left:800px;"><button class="btn btn-primary" method="summit">Continue</button></a>
+            </div>
+          </div>
+          <div class="pricing-levels-3">
+          <p><strong>Which level would you like? (Select 3 Levels)</strong></p>
+          <input class="single-checkbox"type="checkbox" name="vehicle" value="Bike">Level 1<br>
+          <input class="single-checkbox" type="checkbox" name="vehicle" value="Bike">Level 2<br>
+          <input class="single-checkbox" type="checkbox" name="vehicle" value="Bike">Level 3<br>
+          <input class="single-checkbox" type="checkbox" name="vehicle" value="Bike">Level 4<br>
+          <input class="single-checkbox" type="checkbox" name="vehicle" value="Bike">Level 5<br>
+          <input class="single-checkbox" type="checkbox" name="vehicle" value="Bike">Level 6<br>
+          <input class="single-checkbox" type="checkbox" name="vehicle" value="Bike">Level 7<br>
+        </div>
+          </form>
+          </ul>
+
+        </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="{% static 'visualization/checkbox.js' %}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

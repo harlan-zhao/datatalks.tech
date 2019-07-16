@@ -7,13 +7,15 @@ import time
 from .models import userfile
 import shutil
 
+
+cookie_time = 600 # store cookie for only 60 seconds for testing
 # Create your views here.
 def upload(request,context={}):
 	cur_time = time.time()
 
 	for obj in userfile.objects.all():
 		folder_name = str(obj.id)
-		if int(obj.time) + 3000 < int(cur_time):
+		if int(obj.time) + cookie_time < int(cur_time):
 			try:
 				shutil.rmtree(f'./files/{folder_name}')
 			except:
@@ -53,13 +55,28 @@ def upload(request,context={}):
 	return render(request,"upload.html",context=context)
 
 def visualization(request):
-	folder_name = request.session['id']
-	if os.path.exists(f'./files/{folder_name}'):
-		return HttpResponse(folder_name)
-	else:
-		return upload(request,context={'warning':'Session Ended','color':'red'})
-	
+	if request.method == 'POST':
+		print(request.POST.getlist('checks'))
+		render(request,"navbar.html")
 
+	try:
+		names = []
+		folder_name = request.session['id']
+		if len(os.listdir(f'./files/{folder_name}')) > 1:
+			for file in os.listdir(f'./files/{folder_name}'):
+				names.append(file)
+			context = {'files':names}
+		return render(request,"base.html",context)
+	
+	except:
+		print(1)
+		return redirect("../upload",context={'warning':'Session Ended','color':'red'})
+	return render(request,"visualization.html")
+
+	
+	
+def checkbox(request):
+ 	return render(request,"navbar.html")
 
 
 def filecheck(request):
@@ -69,7 +86,7 @@ def filecheck(request):
 		if os.path.exists(f'./files/{folder_name}'):
 			return visualization(request)
 		else:
-			return upload(request,context={'warning':'Session Ended,Please Reupload','color':'red'})
+			return upload(request,context={'warning':'Session Ended','color':'red'})
 	except:		
 		return upload(request,context={'warning':'Wrong Type of Files Detected','color':'red'})
 
