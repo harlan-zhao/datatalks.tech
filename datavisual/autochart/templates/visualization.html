@@ -1,22 +1,132 @@
-{% extends 'filechoose.html' %}
-{% block content %}
-<h1>{{filename}}</h1>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="http://cdn.pydata.org/bokeh/release/bokeh-1.2.0.min.css"/>
+    <link rel="stylesheet" type="text/css" href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.2.0.min.css"/>
+    <link rel="stylesheet" type="text/css" href="http://cdn.pydata.org/bokeh/release/bokeh-tables-1.2.0.min.css"/>
+    <!-- bootstrap  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+            body {background-image: url('{% static "datavisual/img/bg/simple.jpg" %}');
+                  background-size: cover;
+                  height: 937px;}
+            div {float:right;}
+            #box1 {
+                  float:left;
+                  width: 400px;
+                  height: 800px;
+                  padding: 10px;
+                  border: 5px solid gray;
+                  margin: 30px; 
+                }
+            #box2 {
+              float:left;
+              width: 340px;
+              height: 800px;
+              padding: 10px;
+              border: 5px solid gray;
+              margin-top: 30px; 
+            }
+
+            input {
+            margin-top: 20px;
+            margin-left: 6%;
+            -ms-transform: scale(2); /* IE */
+            -moz-transform: scale(2); /* FF */
+            -webkit-transform: scale(2); /* Safari and Chrome */
+            -o-transform: scale(2); /* Opera */
+            transform: scale(2);
+            padding: 10px;
+            }
+            label {
+             padding-left: 40px;font-size: 30px;
+            }
+                
+            
+            #box3  {
+              float:right;
+              width: 1040px;
+              height: 800px;
+              padding: 10px;
+              border: 5px solid gray;
+              margin: 30px; 
+            }
+</style>
+    <title>Enjoy your plot|Data Talks</title>
+</head> 
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a href="/"><img src="{% static 'datavisual/img/logos/Datalogo.png' %}"  alt=""></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav" style="margin-left: 70%; font-size: 20px;">
+      <a class="nav-item nav-link active" href="../">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="../#services">Tools</a>
+      <a class="nav-item nav-link" href="../#team">Portfolio</a>
+    </div>
+  </div>
+  </nav>
+  <div id="box1">
+    <h2 style="text-align: center">Your current file is:<br> FILE</h2>
+    <form method="POST">
+        {% csrf_token %}
+     <div class="pricing-levels-3">
+          <p style="font-size: 25px;"><strong>Choose the instances you want to display <br>(Up to two selections)</strong></p>
+          <input class="single-checkbox" type="checkbox" name="instances" value="instance"><label>Level 1</label><br>
+          <input class="single-checkbox" type="checkbox" name="instances" value="instance"><label>Level 2</label>
+          <input class="single-checkbox" type="checkbox" name="instances" value="instance"><label>Level 3</label><br>
+          <input class="single-checkbox" type="checkbox" name="instances" value="instance"><label>Level 4</label>
+          <input class="single-checkbox" type="checkbox" name="instances" value="instance"><label>Level 5</label><br>
+          <input class="single-checkbox" type="checkbox" name="instances" value="instance"><label>Level 6</label>
+          <input class="single-checkbox" type="checkbox" name="instances" value="instance"><label>Level 7</label><br>
+          <input class="single-checkbox" type="checkbox" name="instances" value="instance"><label>Level 1</label>
+          <input class="single-checkbox" type="checkbox" name="instances" value="instance"><label>Level 2</label><br>
+          <input class="single-checkbox" type="checkbox" name="instances" value="instance"><label>Level 3</label>
+          <input class="single-checkbox" type="checkbox" name="instances" value="instance"><label>Level 4</label><br>
+          <input class="single-checkbox" type="checkbox" name="instances" value="instance"><label>Level 5</label>
+          <input class="single-checkbox" type="checkbox" name="instances" value="instance"><label>Level 6</label><br>
+          <input class="single-checkbox" type="checkbox" name="instances" value="instance"><label>Level 7</label>
+        </div>
+    <div style="">
+        <a href="../"><button class="btn btn-primary" method="submit" style="margin-top:90px;">Another File</button></a>
+        <button class="btn btn-primary" method="submit" style="margin-top:90px;" >Continue</button>
+    </div>
+     
+        
+            
+  </div>
+
+      
+  <div id="box2">
+    <h2 style="text-align: center">Instuctions</h2>
+    <h3>1.Choose up to two instance on the left panel</h3><br>
+    <h3>2.Click Continue</h3><br>
+    <h3>3.Your chart would be on the right</h3><br>
+    <h3>(Use the save button on the right toolbox to download the chart)</h3><br>
+      
+  </div>
+  <div id="box3">
+        <h1 style="text-align: center;font-size: 30px;">Bokeh Starter Graph <h1>
+        <div style="margin-left:20px">
+            {{div| safe}}
+        </div>
+      
+  </div>
+
+    
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{% endblock%}
+</body>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="{% static 'visualization/checkbox2.js' %}"></script>
+    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-1.2.0.min.js"></script>
+    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.2.0.min.js"></script>
+    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-tables-1.2.0.min.js"></script>
+    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-api-1.2.0.min.js"></script> 
+    {{script | safe}}
+</html>

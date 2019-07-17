@@ -6,9 +6,16 @@ import os
 import time
 from .models import userfile
 import shutil
+from bokeh.plotting import figure
+from bokeh.embed import components
+from bokeh.models import HoverTool, LassoSelectTool, WheelZoomTool, PointDrawTool, ColumnDataSource
+from bokeh.palettes import Category20c, Spectral6
+from bokeh.transform import cumsum
+from bokeh.resources import CDN
+import pandas as pd
 
 
-cookie_time = 300 # store cookie for only 60 seconds for testing
+cookie_time = 1000 # store cookie for only 60 seconds for testing
 # Create your views here.
 def upload(request,context={}):
 	cur_time = time.time()
@@ -82,7 +89,25 @@ def checkbox(request):
 	
 	
 def visualization(request,context):
- 	return render(request,"visualization.html",context)
+	lang = ['Python', 'JavaScript', 'C#', 'PHP', 'C++', 'Java']
+	counts = [25, 30, 8, 22, 12, 17]
+	p = figure(x_range=lang, plot_width=1020,plot_height=710, title="Programming Languages Popularity",
+	       toolbar_location="right", tools="pan,wheel_zoom,box_zoom,reset, hover, save,tap, crosshair")
+
+	source = ColumnDataSource(data=dict(lang=lang, counts=counts, color=Spectral6))
+	p.add_tools(LassoSelectTool())
+	p.add_tools(WheelZoomTool())       
+
+	p.vbar(x='lang', top='counts', width=.8, color='color', legend="lang", source=source)
+	p.legend.orientation = "horizontal"
+	p.legend.location = "top_center"
+
+	# p.xgrid.grid_line_color = "black"
+	# p.y_range.start = 0
+	# p.line(x=lang, y=counts, color="black", line_width=2)
+	script, div = components(p)
+	return render(request, 'visualization.html' , {'script': script, 'div':div})
+ 	# return render(request,"visualization.html",context)
 
 
 def filecheck(request):
