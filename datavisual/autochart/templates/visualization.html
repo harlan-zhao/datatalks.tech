@@ -8,6 +8,11 @@
     <!-- bootstrap  -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="{% static 'visualization/instance.css' %}" rel="stylesheet" />
+    <style>
+      body{
+        background-image: url('{% static "datavisual/img/bg/wall.jpg" %}');
+      }
+    </style>
  
     <title>Enjoy your plot|Data Talks</title>
 </head> 
@@ -46,9 +51,9 @@
     <h3>1.Choose up to two instances on the left panel</h3><br>
     <h3>2.Click Continue</h3><br>
     <h3>3.Your chart would be on the right</h3><br>
-    <h3>(Use the save button on the toolbox to download the chart)</h3>
+    <h3>(For downloading chart,Use the save button on the right of the chart)</h3>
     <br>
-     <label style="font-size:20px;text-align: center;color: red;">{{warning}}</label>
+     <label style="font-size:20px;text-align: center;color: red;"><strong>{{warning}}</strong></label>
      <br>
 
      <a href="/upload"><button class="btn btn-primary" type="button" style="margin-left:22%;margin-bottom: 30px; width: 150px;height: 60px;">Another File</button></a>
@@ -60,10 +65,24 @@
   <div id="box3">
         <h1 style="text-align: center;font-size: 30px;">{{instances}}<h1>
         <div style="margin-left:20px">
+            <img src="{% static 'datavisual/img/bg/showchart.png' %}" style="padding:270px;display: {{display_image}}">
+            <div style="padding-top: 4%;">
             {{div| safe}}
+            </div>
         </div>
-      
+         
+     
+            
   </div>
+    <div class="footer" style="position: fixed;
+              left: 0;
+              bottom: 0;
+              width: 100%;  
+              color: black;
+              text-align: center;">
+      <span style="color:black">Copyright &copy; Data Talks 2019</span>
+    </div>
+
 
     
 

@@ -9,6 +9,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="{% static 'visualization/checkbox.css' %}" rel="stylesheet" />
+     <style>
+      body{
+        background-image: url('{% static "datavisual/img/bg/simple.jpg" %}');
+      }
+    </style>
     <title>Choose Your File</title>
   </head>
 
@@ -30,12 +35,13 @@
 {% block content %}  
      
          <div class="pricing-levels-3">
-          <div class="card">
+          <div class="card-transparent">
             <div class="card-body">
-               <p style="font-size: 30px;margin-left: 300px"><strong>You uploaded multiple files. <br> Which file would you like to visualize? <br>(Select 1 File Each Time, you can come back later and choose another file)</strong></p>
+               <p style="font-size: 30px;margin-left: 300px"><strong>You uploaded multiple files. <br> Which file would you like to visualize? <br>(Select 1 File Each Time, you can come back later and choose another file)</strong></p>         
+               <p style="font-size: 30px; padding-left: 30%; color: red"><strong>{{filechoose_warning}}</strong></p>
             </div>
           </div>      
-  
+   
           <form method="POST">
             {% csrf_token %}      
             {% for file in files %}
@@ -49,7 +55,7 @@
        
             {% endfor %}
 
-            <div class="card">
+            <div class="card-transparent">
             <div class="card-body">
                <button class="btn btn-primary" method="submit" style="margin-left: 750px;">Continue</button>
             </div>

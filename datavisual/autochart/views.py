@@ -65,21 +65,27 @@ def upload(request,context={}):
 
 	return render(request,"upload.html",context=context)
 
-def checkbox(request):
-	if request.method == 'POST':		
-		request.session['filename'] = request.POST.getlist('checks')[0]
-
-		return redirect('../visualization')
+def checkbox(request,context={}):
+	if request.method == 'POST':
+		if request.POST.getlist('checks')==[]:
+			print(1)
+			context['filechoose_warning'] = 'Please Choose One File'
+		else:
+			try:
+				del context['filechoose_warning']
+			except:
+				pass
+			request.session['filename'] = request.POST.getlist('checks')[0]       
+			return redirect('../visualization')
 
 	try:
 		names = []
-		context={}
 		folder_name = request.session['id']
 		if len(os.listdir(f'./files/{folder_name}')) > 1:		
 			for file in os.listdir(f'./files/{folder_name}'):
 				names.append(file)
-			context = {'files':names}
-			return render(request,"filechoose.html",context)
+			context['files'] = names
+			return render(request,"filechoose.html",context=context)
 		else:
 			# for file in os.listdir(f'./files/{folder_name}'):
 			request.session['filename'] = os.listdir(f'./files/{folder_name}')[0]
@@ -91,36 +97,41 @@ def checkbox(request):
 	
 	
 def visualization(request,context={}):
+	filename = request.session['filename']
+	file_id = request.session['id']
+	columns = get_columns(file_id,filename)
+	context['columns'] = columns
+	context['filename'] = filename
+	instances = []
+	try:
+		del context['warning']
+	except:
+		pass
 	if request.method == "POST":
 		context['warning'] = ""
 		instances = request.POST.getlist('instances')
 		if not instances:
 			context['warning'] = 'No instances chosen'
 			return render(request, 'visualization.html' , context)
-		context['instances'] = instances[0]+"/"+instances[1]
+		if len(instances) == 1:
+			script, div = analyze(file_id,filename,instances[0],instances[0])
+		else:		
+			script, div = analyze(file_id,filename,instances[0],instances[1])
+		context['div'] = div
+		context['script'] = script
+		
+		context['display_image'] = 'none'
+		
+		
 		return render(request, 'visualization.html' , context)
-	
-	filename = request.session['filename']
-	file_id = request.session['id']
-	columns = get_columns(file_id,filename)
-	context['columns'] = columns
-	Xaxis,Yaxis = analyze(file_id,filename,'Survived','Pclass')
-	
-	p = figure(x_range=Xaxis, plot_width=1020,plot_height=710, title="Programming Languages Popularity",
-	       toolbar_location="right", tools="pan,wheel_zoom,box_zoom,reset, hover, save,tap, crosshair")
 
-	source = ColumnDataSource(data=dict(Xaxis=Xaxis, Yaxis=Yaxis, color=Spectral6))
-	p.add_tools(LassoSelectTool())
-	p.add_tools(WheelZoomTool())       
+	context['display_image'] = 'true'
+	try:
+		del context['div']
+		del context['script']
+	except:
+		pass
 
-	p.vbar(x='Xaxis', top='Yaxis', width=.8, color='color', legend="Xaxis", source=source)
-	p.legend.orientation = "horizontal"
-	p.legend.location = "top_center"
-
-	script, div = components(p)
-	context['script'] = script
-	context['div'] = div
-	context['filename'] = filename
 	return render(request, 'visualization.html' , context)
 
 def filecheck(request):

@@ -46,3 +46,12 @@ body {background-image: url('{% static "datavisual/img/bg/simple.jpg" %}');
               border: 5px solid gray;
               margin: 30px; 
             }
+    
+            #chart_area {
+              color: #000; /* Fallback for older browsers */
+              color: rgba(0, 0, 0, 0.5);
+
+              font-size: 16pt;
+              font-family: Arial, sans-serif;
+          }
+          
