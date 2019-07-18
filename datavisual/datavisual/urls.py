@@ -24,7 +24,7 @@ urlpatterns = [
     path('upload/',upload),
     path('filecheck/',filecheck),
     path('filechoose/',checkbox),
-    path('visualization',visualization),
+    path('visualization/',visualization),
 ]
  
 urlpatterns += staticfiles_urlpatterns()

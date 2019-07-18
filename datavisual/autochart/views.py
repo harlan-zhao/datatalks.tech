@@ -13,6 +13,8 @@ from bokeh.palettes import Category20c, Spectral6
 from bokeh.transform import cumsum
 from bokeh.resources import CDN
 import pandas as pd
+from .data_analyze import analyze,get_columns
+
 
 
 cookie_time = 1000 # store cookie for only 60 seconds for testing
@@ -47,13 +49,13 @@ def upload(request,context={}):
 			try:
 				folder_id = request.session['id']
 				userfile.objects.filter(id = int(folder_id)).update_or_create(time=cur_time)
-				print(1)
+				
 			
 			except:
 				user = userfile.objects.create(time=cur_time)
 				request.session['id'] = str(user.id)
 				folder_id = request.session['id']
-				print(2)
+				
 
 			fs = FileSystemStorage(location=folder+'/'+folder_id)
 			filename = fs.save(my_file.name, my_file)
@@ -64,13 +66,14 @@ def upload(request,context={}):
 	return render(request,"upload.html",context=context)
 
 def checkbox(request):
-	if request.method == 'POST':
-		context = {'filename':request.POST.getlist('checks')[0]}
-		return visualization(request,context)
+	if request.method == 'POST':		
+		request.session['filename'] = request.POST.getlist('checks')[0]
+
+		return redirect('../visualization')
 
 	try:
 		names = []
-		context={'files':['test']}
+		context={}
 		folder_name = request.session['id']
 		if len(os.listdir(f'./files/{folder_name}')) > 1:		
 			for file in os.listdir(f'./files/{folder_name}'):
@@ -78,44 +81,54 @@ def checkbox(request):
 			context = {'files':names}
 			return render(request,"filechoose.html",context)
 		else:
-			for file in os.listdir(f'./files/{folder_name}'):
-				context = {'filename':file}
-			return visualization(request,context)
+			# for file in os.listdir(f'./files/{folder_name}'):
+			request.session['filename'] = os.listdir(f'./files/{folder_name}')[0]
+		return  redirect('../visualization')
 	
 	except:
-		print(1)
 		return redirect("../upload",context={'warning':'Session Ended','color':'red'})
 
 	
 	
-def visualization(request,context):
-	lang = ['Python', 'JavaScript', 'C#', 'PHP', 'C++', 'Java']
-	counts = [25, 30, 8, 22, 12, 17]
-	p = figure(x_range=lang, plot_width=1020,plot_height=710, title="Programming Languages Popularity",
+def visualization(request,context={}):
+	if request.method == "POST":
+		context['warning'] = ""
+		instances = request.POST.getlist('instances')
+		if not instances:
+			context['warning'] = 'No instances chosen'
+			return render(request, 'visualization.html' , context)
+		context['instances'] = instances[0]+"/"+instances[1]
+		return render(request, 'visualization.html' , context)
+	
+	filename = request.session['filename']
+	file_id = request.session['id']
+	columns = get_columns(file_id,filename)
+	context['columns'] = columns
+	Xaxis,Yaxis = analyze(file_id,filename,'Survived','Pclass')
+	
+	p = figure(x_range=Xaxis, plot_width=1020,plot_height=710, title="Programming Languages Popularity",
 	       toolbar_location="right", tools="pan,wheel_zoom,box_zoom,reset, hover, save,tap, crosshair")
 
-	source = ColumnDataSource(data=dict(lang=lang, counts=counts, color=Spectral6))
+	source = ColumnDataSource(data=dict(Xaxis=Xaxis, Yaxis=Yaxis, color=Spectral6))
 	p.add_tools(LassoSelectTool())
 	p.add_tools(WheelZoomTool())       
 
-	p.vbar(x='lang', top='counts', width=.8, color='color', legend="lang", source=source)
+	p.vbar(x='Xaxis', top='Yaxis', width=.8, color='color', legend="Xaxis", source=source)
 	p.legend.orientation = "horizontal"
 	p.legend.location = "top_center"
 
-	# p.xgrid.grid_line_color = "black"
-	# p.y_range.start = 0
-	# p.line(x=lang, y=counts, color="black", line_width=2)
 	script, div = components(p)
-	return render(request, 'visualization.html' , {'script': script, 'div':div})
- 	# return render(request,"visualization.html",context)
-
+	context['script'] = script
+	context['div'] = div
+	context['filename'] = filename
+	return render(request, 'visualization.html' , context)
 
 def filecheck(request):
 	try: 
 		folder_name = request.session['id']
 		user_id = int(folder_name)
 		if os.path.exists(f'./files/{folder_name}'):
-			return checkbox(request)
+			return redirect('../filechoose')
 		else:
 			return upload(request,context={'warning':'Session Ended','color':'red'})
 	except:		
