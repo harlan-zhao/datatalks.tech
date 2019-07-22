@@ -1,18 +1,10 @@
 from django.shortcuts import render,redirect
-from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponse
 import os
 import time
 from .models import userfile
 import shutil
-from bokeh.plotting import figure
-from bokeh.embed import components
-from bokeh.models import HoverTool, LassoSelectTool, WheelZoomTool, PointDrawTool, ColumnDataSource
-from bokeh.palettes import Category20c, Spectral6
-from bokeh.transform import cumsum
-from bokeh.resources import CDN
-import pandas as pd
+
 from .data_analyze import analyze,get_columns
 
 
@@ -26,7 +18,7 @@ def upload(request,context={}):
 		folder_name = str(obj.id)
 		if int(obj.time) + cookie_time < int(cur_time):
 			try:
-				shutil.rmtree(f'./files/{folder_name}')
+				shutil.rmtree(f'/home/harlanzhao/files/{folder_name}')
 			except:
 				pass
 
@@ -44,22 +36,21 @@ def upload(request,context={}):
 		folder = 'files'
 		my_file = request.FILES['document']
 		name = my_file.name
-		
+
 		if name.endswith(".csv"):
 			try:
 				folder_id = request.session['id']
 				userfile.objects.filter(id = int(folder_id)).update_or_create(time=cur_time)
-				
-			
+
+
 			except:
 				user = userfile.objects.create(time=cur_time)
 				request.session['id'] = str(user.id)
 				folder_id = request.session['id']
-				
+
 
 			fs = FileSystemStorage(location=folder+'/'+folder_id)
 			filename = fs.save(my_file.name, my_file)
-			file_url = fs.url(filename)
 		else:
 			return redirect("../upload",context={'warning':'Wrong Type of Files Detected','color':'red'})
 
@@ -75,27 +66,27 @@ def checkbox(request,context={}):
 				del context['filechoose_warning']
 			except:
 				pass
-			request.session['filename'] = request.POST.getlist('checks')[0]       
+			request.session['filename'] = request.POST.getlist('checks')[0]
 			return redirect('../visualization')
 
 	try:
 		names = []
 		folder_name = request.session['id']
-		if len(os.listdir(f'./files/{folder_name}')) > 1:		
-			for file in os.listdir(f'./files/{folder_name}'):
+		if len(os.listdir(f'/home/harlanzhao/files/{folder_name}')) > 1:
+			for file in os.listdir(f'/home/harlanzhao/files/{folder_name}'):
 				names.append(file)
 			context['files'] = names
 			return render(request,"filechoose.html",context=context)
 		else:
 			# for file in os.listdir(f'./files/{folder_name}'):
-			request.session['filename'] = os.listdir(f'./files/{folder_name}')[0]
+			request.session['filename'] = os.listdir(f'/home/harlanzhao/files/{folder_name}')[0]
 		return  redirect('../visualization')
-	
+
 	except:
 		return redirect("../upload",context={'warning':'Session Ended','color':'red'})
 
-	
-	
+
+
 def visualization(request,context={}):
 	filename = request.session['filename']
 	file_id = request.session['id']
@@ -115,14 +106,14 @@ def visualization(request,context={}):
 			return render(request, 'visualization.html' , context)
 		if len(instances) == 1:
 			script, div = analyze(file_id,filename,instances[0],instances[0])
-		else:		
+		else:
 			script, div = analyze(file_id,filename,instances[0],instances[1])
 		context['div'] = div
 		context['script'] = script
-		
+
 		context['display_image'] = 'none'
-		
-		
+
+
 		return render(request, 'visualization.html' , context)
 
 	context['display_image'] = 'true'
@@ -135,13 +126,12 @@ def visualization(request,context={}):
 	return render(request, 'visualization.html' , context)
 
 def filecheck(request):
-	try: 
+	try:
 		folder_name = request.session['id']
-		user_id = int(folder_name)
-		if os.path.exists(f'./files/{folder_name}'):
+		if os.path.exists(f'/home/harlanzhao/files/{folder_name}'):
 			return redirect('../filechoose')
 		else:
 			return upload(request,context={'warning':'Session Ended','color':'red'})
-	except:		
+	except:
 		return upload(request,context={'warning':'Wrong Type of Files Detected','color':'red'})
 

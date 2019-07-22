@@ -24,8 +24,14 @@ SECRET_KEY = 'ny$^qi!y_0rm90gn8ewq!2rp4*29qnt#yz2zc(3&+8k8@zoiy#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'datatalks.tech@gmail.com'
+EMAIL_HOST_PASSWORD = 'gwvqnioqqinhyerj'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'DataTalks <noreply@datatalks.com>'
+ALLOWED_HOSTS = ['harlanzhao.pythonanywhere.com','www.datatalks.tech','datatalks.tech']
 
 
 # Application definition
@@ -119,6 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/harlanzhao/DataTalks.Tech/static'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),

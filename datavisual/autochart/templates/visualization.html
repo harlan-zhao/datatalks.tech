@@ -2,9 +2,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="http://cdn.pydata.org/bokeh/release/bokeh-1.2.0.min.css"/>
-    <link rel="stylesheet" type="text/css" href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.2.0.min.css"/>
-    <link rel="stylesheet" type="text/css" href="http://cdn.pydata.org/bokeh/release/bokeh-tables-1.2.0.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.2.0/bokeh.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.2.0/bokeh-widgets.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.2.0/bokeh-tables.min.css"/>
     <!-- bootstrap  -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="{% static 'visualization/instance.css' %}" rel="stylesheet" />
@@ -13,9 +13,9 @@
         background-image: url('{% static "datavisual/img/bg/wall.jpg" %}');
       }
     </style>
- 
+
     <title>Enjoy your plot|Data Talks</title>
-</head> 
+</head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a href="/"><img src="{% static 'datavisual/img/logos/Datalogo.png' %}"  alt=""></a>
@@ -40,12 +40,12 @@
           {% for column in columns %}
           <input class="single-checkbox" type="checkbox" name="instances" value="{{column}}"><label>{{column}}</label><br>
           {% endfor %}
-          
-        </div>       
-            
+
+        </div>
+
   </div>
 
-      
+
   <div id="box2">
     <h2 style="text-align: center">Instuctions</h2>
     <h3>1.Choose up to two instances on the left panel</h3><br>
@@ -60,7 +60,7 @@
      <br>
      <br>
      <button class="btn btn-primary" method="submit" style="margin-left: 22%;margin-bottom: 10px;width: 150px;height: 60px;" >Show Chart</button>
-  
+
   </div>
   <div id="box3">
         <h1 style="text-align: center;font-size: 30px;">{{instances}}<h1>
@@ -70,31 +70,35 @@
             {{div| safe}}
             </div>
         </div>
-         
-     
-            
+
+
+
   </div>
     <div class="footer" style="position: fixed;
               left: 0;
               bottom: 0;
-              width: 100%;  
+              width: 100%;
               color: black;
               text-align: center;">
       <span style="color:black">Copyright &copy; Data Talks 2019</span>
     </div>
 
 
-    
+
 
 
 
 
 </body>
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <!--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>-->
+    <script
+  src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous"></script>
     <script src="{% static 'visualization/checkbox2.js' %}"></script>
-    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-1.2.0.min.js"></script>
-    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.2.0.min.js"></script>
-    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-tables-1.2.0.min.js"></script>
-    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-api-1.2.0.min.js"></script> 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.2.0/bokeh.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.2.0/bokeh-widgets.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.2.0/bokeh-tables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.2.0/bokeh-api.min.js"></script>
     {{script | safe}}
 </html>

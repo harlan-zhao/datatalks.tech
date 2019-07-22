@@ -7,8 +7,8 @@
         <title>Data Talks|Upload Your CSV File</title>
 
         <!-- Google web fonts -->
-        <link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel='stylesheet' />
-        
+        <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel='stylesheet' />
+
         <!-- The main CSS file -->
         <link href="{% static 'upload/assets/css/style.css' %}" rel="stylesheet" />
 
@@ -59,13 +59,13 @@
               box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
             }
 
-              
+
         </style>
 
     </head>
 
     <body>
-     
+
         <nav style="padding-top: 40px">
              <a href="/" ><img src="{% static 'datavisual/img/logos/Datalogo.png' %}"  alt=""></a>
         </nav>
@@ -77,9 +77,9 @@
                 <input type="file" name="document"/>
                 {% csrf_token %}
             </div>
-        
+
             <div style="margin-bottom: 10px"><label style="margin-left:40px;color: {{color}};font-size: 17px"><strong>{{ warning }}</strong></label></div>
-           
+
 
             <a href="/"><button type="button" style="width: 110px;" class="btn btn-primary button">Back</button></a>
             <a href="../filecheck/"><button type="button" style="float: right;width: 115px" class="btn btn-primary button">Continue</button></a>
@@ -92,8 +92,8 @@
 
         </form>
     </body>
-  
-  
+
+
      <!-- JavaScript Includes -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="{% static 'upload/assets/js/jquery.knob.js' %}"></script>
@@ -104,5 +104,5 @@
 
         <!-- Our main JS file -->
         <script src="{% static 'upload/assets/js/script.js' %}"></script>
-       
+
 </html>

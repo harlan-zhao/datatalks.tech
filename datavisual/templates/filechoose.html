@@ -18,7 +18,7 @@
   </head>
 
 
-  <body> 
+  <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a href="/"><img src="{% static 'datavisual/img/logos/Datalogo.png' %}"  alt=""></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,28 +31,28 @@
       <a class="nav-item nav-link" href="../#team">Portfolio</a>
     </div>
   </div>
-  </nav> 
-{% block content %}  
-     
+  </nav>
+{% block content %}
+
          <div class="pricing-levels-3">
           <div class="card-transparent">
             <div class="card-body">
-               <p style="font-size: 30px;margin-left: 300px"><strong>You uploaded multiple files. <br> Which file would you like to visualize? <br>(Select 1 File Each Time, you can come back later and choose another file)</strong></p>         
+               <p style="font-size: 30px;margin-left: 300px"><strong>You uploaded multiple files. <br> Which file would you like to visualize? <br>(Select 1 File Each Time, you can come back later and choose another file)</strong></p>
                <p style="font-size: 30px; padding-left: 30%; color: red"><strong>{{filechoose_warning}}</strong></p>
             </div>
-          </div>      
-   
+          </div>
+
           <form method="POST">
-            {% csrf_token %}      
+            {% csrf_token %}
             {% for file in files %}
-     
+
           <input class="single-checkbox" type="checkbox" style="margin-left: 700px; -ms-transform: scale(2); /* IE */
             -moz-transform: scale(2); /* FF */
             -webkit-transform: scale(2); /* Safari and Chrome */
             -o-transform: scale(2); /* Opera */
             transform: scale(2);
             padding: 10px;" name="checks" value="{{file}}"><label style="margin-left: 10px;font-size: 30px">{{file}}</label><br>
-       
+
             {% endfor %}
 
             <div class="card-transparent">
@@ -67,8 +67,13 @@
 {% endblock %}
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-1.9.1.js"></script>-->
+    <script
+  src="https://code.jquery.com/jquery-1.9.1.js"
+  integrity="sha256-e9gNBsAcA0DBuRWbm0oZfbiCyhjLrI6bmqAl5o+ZjUA="
+  crossorigin="anonymous"></script>
     <script src="{% static 'visualization/checkbox.js' %}"></script>
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
