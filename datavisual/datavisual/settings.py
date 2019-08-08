@@ -135,6 +135,6 @@ MDDIA_ROOT = os.path.join(BASE_DIR,'files')
 MEDIA_URL = '/files/'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_AGE = 1000 # set just 10 seconds to test
+SESSION_COOKIE_AGE = 3000 # set just 10 seconds to test
 SESSION_SAVE_EVERY_REQUEST = True
 

@@ -2,19 +2,19 @@ from django.shortcuts import render,redirect
 from django.core.files.storage import FileSystemStorage
 import os
 import time
-from .models import userfile
+from .models import UserFile
 import shutil
 
 from .data_analyze import analyze,get_columns
 
 
 
-cookie_time = 1000 # store cookie for only 60 seconds for testing
+cookie_time = 3000 # store cookie for only 60 seconds for testing
 # Create your views here.
 def upload(request,context={}):
 	cur_time = time.time()
 
-	for obj in userfile.objects.all():
+	for obj in UserFile.objects.all():
 		folder_name = str(obj.id)
 		if int(obj.time) + cookie_time < int(cur_time):
 			try:
@@ -40,17 +40,18 @@ def upload(request,context={}):
 		if name.endswith(".csv"):
 			try:
 				folder_id = request.session['id']
-				userfile.objects.filter(id = int(folder_id)).update_or_create(time=cur_time)
+				UserFile.objects.filter(id = int(folder_id)).update_or_create(time=cur_time)
 
 
 			except:
-				user = userfile.objects.create(time=cur_time)
+				user = UserFile.objects.create(time=cur_time)
 				request.session['id'] = str(user.id)
 				folder_id = request.session['id']
 
 
 			fs = FileSystemStorage(location=folder+'/'+folder_id)
 			filename = fs.save(my_file.name, my_file)
+			file_url = fs.url(filename)
 		else:
 			return redirect("../upload",context={'warning':'Wrong Type of Files Detected','color':'red'})
 
@@ -91,6 +92,10 @@ def visualization(request,context={}):
 	filename = request.session['filename']
 	file_id = request.session['id']
 	columns = get_columns(file_id,filename)
+	if not columns:
+		context = {'invalid':'The file you uploaded has no columns,please use a valid file.'}
+
+		return render(request, 'visualization.html',context)
 	context['columns'] = columns
 	context['filename'] = filename
 	instances = []

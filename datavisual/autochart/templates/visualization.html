@@ -2,6 +2,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="The home of data science,providing online tools for analyzing data">
+    <meta name="author" content="Harlan Zhao">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.2.0/bokeh.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.2.0/bokeh-widgets.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.2.0/bokeh-tables.min.css"/>
@@ -37,9 +41,16 @@
      <div class="pricing-levels-3">
           <p style="font-size: 25px;"><strong>Choose the instances you want to display <br>(Up to two selections)</strong></p>
 
+          {% if columns %}
+
           {% for column in columns %}
           <input class="single-checkbox" type="checkbox" name="instances" value="{{column}}"><label>{{column}}</label><br>
           {% endfor %}
+          {% else %}
+               {% if invalid %}
+               <label style="color: red">{{ invalid }}</label>
+               {% endif %}
+          {% endif %}
 
         </div>
 

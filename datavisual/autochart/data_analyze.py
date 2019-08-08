@@ -35,7 +35,10 @@ def analyze(file_id,file,ins1,ins2):
 
 def get_columns(file_id,file):
     path = '/home/harlanzhao/files/'+file_id+'/'+file
-    df = pd.read_csv(path)
-    columns = list(df.columns.values)
+    try:
+        df = pd.read_csv(path)
+        columns = list(df.columns.values)
+    except:
+        return False
     return columns or None
 
