@@ -3,7 +3,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="The home of data science,providing online tools for analyzing data">
@@ -46,6 +45,21 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact" style="font-size: 1rem"><strong>Contact</strong></a>
           </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="logout" style="font-size: 1rem"><strong>LogOut</strong></a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="profile" style="font-size: 1rem"><strong>Profile</strong></a>
+              </li>
+          {% else %}
+          <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="login" style="font-size: 1rem"><strong>LogIn</strong></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="register" style="font-size: 1rem"><strong>Register</strong></a>
+        </li>
+          {% endif %}
         </ul>
       </div>
     </div>
@@ -63,6 +77,19 @@
   </header>
 
   <!-- Services -->
+  <main role="main" class="container">
+  <div class="row">
+  <div class="col-md-8">
+  {% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+</div>
+</div>
+</main>
   <section class="page-section" id="services">
     <div class="container">
       <div class="row">

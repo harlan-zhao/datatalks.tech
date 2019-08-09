@@ -1,8 +1,10 @@
-from django.shortcuts import render,HttpResponseRedirect
+from django.shortcuts import render,HttpResponseRedirect,redirect
 from django.core.mail import send_mail
 from django.conf import settings
 from .form import ContactForm
 from django.contrib import messages
+from .form import UserRegisterForm
+from django.contrib.auth.decorators import login_required
 
 def mail(name,message,email):
 	subject = 'email from datatalks.tech'
@@ -32,3 +34,24 @@ def homepage(request):
 
 	form = ContactForm()
 	return render(request,'index.html',{'form':form})
+
+def register(request):
+	if request.method == 'POST':
+		form = UserRegisterForm(request.POST)
+		if form.is_valid():
+			form.save()
+			username = form.cleaned_data.get('username')
+			messages.success(request, f'Account created for {username}! Log In Now!')
+			return redirect('home')
+	else:
+		form = UserRegisterForm()
+		return render(request, 'registration.html', {'form': form})
+	return render(request, 'registration.html', {'form': form})
+
+
+def login(request):
+	return render(request,'login.html')
+
+@login_required
+def profile(request):
+	return render(request,'profile.html')
