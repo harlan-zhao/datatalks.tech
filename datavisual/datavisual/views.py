@@ -42,7 +42,7 @@ def register(request):
 			form.save()
 			username = form.cleaned_data.get('username')
 			messages.success(request, f'Account created for {username}! Log In Now!')
-			return redirect('home')
+			return redirect('login')
 	else:
 		form = UserRegisterForm()
 		return render(request, 'registration.html', {'form': form})
