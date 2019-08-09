@@ -55,3 +55,7 @@ def login(request):
 @login_required
 def profile(request):
 	return render(request,'profile.html')
+
+def redirecting(request):
+	messages.success(request,f"You have logged out!")
+	return redirect('home')

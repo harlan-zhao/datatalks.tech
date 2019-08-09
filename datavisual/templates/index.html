@@ -69,6 +69,14 @@
   <header class="masthead">
     <div class="container">
       <div class="intro-text">
+        {% if messages %}
+        {% for message in messages %}
+          <div style="width: 200px;text-align: center;display: inline-block" class="alert alert-{{message.tags}}" role="alert">
+              {{message}}
+            </div>
+        
+        {% endfor %}
+        {% endif %}
         <div class="intro-lead-in">Welcome To Data Talks!</div>
         <div class="intro-heading text-uppercase">Talk to your data now!</div>
         <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="upload/">Upload and Start</a>
