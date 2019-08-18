@@ -139,4 +139,3 @@ def filecheck(request):
 			return upload(request,context={'warning':'Session Ended','color':'red'})
 	except:
 		return upload(request,context={'warning':'Wrong Type of Files Detected','color':'red'})
-
