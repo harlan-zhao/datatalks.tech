@@ -12,22 +12,18 @@ from bokeh.resources import CDN
 
 def analyze(file_id,file,ins1,ins2):
     path = '/home/harlanzhao/files/'+file_id+'/'+file
-    xaxis,yaxis = [],[]
     df = pd.read_csv(path)
-
-    Xaxis = ['Welcome', 'To', 'World', 'Of', 'Data', 'Science']
-    Yaxis = [25, 30, 8, 22, 12, 17]
-
-    p = figure(x_range=Xaxis, plot_width=1020,plot_height=710, title=f"{ins1}/{ins2}",
-	       toolbar_location="right", tools="pan,wheel_zoom,box_zoom,reset, hover, save,tap, crosshair")
-    source = ColumnDataSource(data=dict(Xaxis=Xaxis, Yaxis=Yaxis, color=Spectral6))
-    p.add_tools(LassoSelectTool())
-    p.add_tools(WheelZoomTool())
-
-    p.vbar(x='Xaxis', top='Yaxis', width=.8, color='color', legend="Xaxis", source=source)
-    p.legend.orientation = "horizontal"
-    p.legend.location = "top_center"
-
+    if ins1 == ins2:
+        pass
+    else:
+        df = pd.read_csv(path)
+        xaxis,yaxis = df[ins1],df[ins2]
+        p = figure(plot_width=1020,plot_height=710, title=f"{ins1}/{ins2}",
+            toolbar_location="right", tools="pan,wheel_zoom,box_zoom,reset, hover, save,tap, crosshair")
+        p.add_tools(LassoSelectTool())
+        p.add_tools(WheelZoomTool())
+        p.circle(xaxis, yaxis)
+	script, div = components(p)
     script, div = components(p)
     return script, div
 
