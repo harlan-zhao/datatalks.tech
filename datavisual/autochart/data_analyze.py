@@ -23,7 +23,7 @@ def analyze(file_id,file,ins1,ins2):
         p.add_tools(LassoSelectTool())
         p.add_tools(WheelZoomTool())
         p.circle(xaxis, yaxis)
-	script, div = components(p)
+    script, div = components(p)
     script, div = components(p)
     return script, div
 
