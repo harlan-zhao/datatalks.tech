@@ -2,3 +2,4 @@ virtualenv/
 .idea/
 datavisual/files/
 .ideas
+db.sqlite3
