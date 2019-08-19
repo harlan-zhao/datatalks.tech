@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="padding: 20px;">
+<h1>Endpoint</h1>
+<h2>www.datatalks.tech/getvisual</h2>
+<br>
+<h1>Methods</h1>
+<h2>Only POST would be accepted</h2>
+<br>
+<h1>Body Format</h1>
+<p style="font-size: 30px;">{col1_title : 'your column_1 title',<br>
+     col2_title : 'your column_2 title',<br>
+     col1_data : 'your column_1 data here',<br>
+     col2_data : 'your column_2 data here'}
+</p>
+<br>
+<h2>Example of POST body format</h2>
+<p style="font-size: 30px;">{'col1_title' : 'month',<br>
+    'col2_title' : 'day',<br>
+    'col1_data' : '[Jan,Mar,Apr]',<br>
+    'col2_data' : '[2,3,4]'}</p>
+<br>
+<h1>Example Response</h1>
+<p style="font-size: 30px;"> {
+        "div": "the diagram html code chunk, you can implement it directly in your webpage",<br>
+        "js" : "The JavaScript code chunk, should be used along with the html code"
+     }
+     </p>
+{% endblock %}
+</div>

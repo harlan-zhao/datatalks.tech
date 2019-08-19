@@ -56,6 +56,9 @@ def login(request):
 def profile(request):
 	return render(request,'profile.html')
 
+def api(request):
+	return render(request,'api.html')
+
 def redirecting(request):
 	messages.success(request,f"You have logged out!")
 	return redirect('home')
